@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+   
+<title>DocForge</title>
+<style>
+    *{
+       
+        padding: 0px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body{
+        height: 100%;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        
+    }
+  
+    
+    #titulo{
+        width: 300px; /* largura máxima do input */
+       margin-bottom: 20px;
+        white-space: nowrap; /* impede a quebra de linha */
+        overflow: hidden; /* esconde o texto que ultrapassa a largura */
+        text-overflow: ellipsis; /* adiciona reticências ao final do texto cortado */
+    }
+    .body{
+        margin-top: 80px; /* Para ajustar o espaço do cabeçalho */
+        height: calc(95vh - 80px); /* Altura do corpo (menos a altura do cabeçalho) */
+        overflow-y:auto;
+        width: 900px;
+        box-sizing: border-box;
+        
+    }
+
+
+  
+    a{
+        text-decoration: none;
+    }
+
+</style>
+</head>
+<body>
+    
+    <header class=" fixed-top ">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <h3><a href="/new" class="">DocForge</a></h3>
+                </div>
+                
+            </div>
+            <div class="row">
+            
+                <div class="col-md-12 ">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb float-md-right bg-transparent" >
+                         
+                            <li class="breadcrumb-item"><a href="/docs" >docs</a></li>
+                          <li class="breadcrumb-item " >viewer</li>
+                          
+                          <li class="breadcrumb-item active" aria-current="page"></li>edit</li>
+                        
+                          
+                        </ol>
+                      </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+       
+       
+        <div class="body">
+
+            
+            <div class="d-flex justify-content-center">
+                <th:block th:include="~{errorEdit}"></th:block>
+                <form action="/edit/${doc.id}" th:method="post" th:object="${doc}">
+                    <div class="col-md-5">
+                        <input type="hidden" th:value="${doc.id}" th:field="*{id}" name="id"> 
+                    <label for="titulo" class="form-label" ><strong>Nome do documento</strong></label>
+                    <input type="text" class="form-control"  placeholder="" name="name" th:value="${doc.name}" id="titulo" >
+                    <textarea name="Text" class="folha-a4" id="summernote" th:text="${doc.text}" >
+                      
+                    </textarea>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-success btn-block mt-2 " style="width: 100%;">Salvar</button>
+                        
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+   
+
+    <script>
+        $(document).ready(function() {
+             // Função para atualizar o Summernote com base no tamanho da tela
+    function updateSummernote() {
+
+        var summernoteConfig = {
+            placeholder: 'Texto *',
+            tabsize: 2,
+            height: 500,
+            width: 850
+        };
+
+        if ($(window).width() < 991) {
+         // Se a largura da janela for menor que 768 pixels
+            summernoteConfig.width = '100%'; // Defina a largura como 100% para responsividade
+            summernoteConfig.height = 300; // Ajuste a altura para uma versão menor
+        } 
+
+        // Destrua o Summernote antes de recriá-lo
+        $('#summernote').summernote('destroy');
+
+        // Recrie o Summernote com as configurações atualizadas
+        $('#summernote').summernote(summernoteConfig);
+    }
+
+    // Chame a função no carregamento da página
+    updateSummernote();
+
+    // Atualize o Summernote quando a janela for redimensionada
+    $(window).resize(function() {
+        updateSummernote();
+    });
+           
+        });
+       
+  
+    </script>
+</body>
+</html>

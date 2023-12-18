@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+   
+<title>DocForge</title>
+    <style>
+        *{
+            
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+       
+       
+       
+       
+        .body{
+            margin-top: 85px; /* Para ajustar o espaço do cabeçalho */
+            height: calc(100vh - 85px); /* Altura do corpo (menos a altura do cabeçalho) */
+            overflow-y: scroll;
+           
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        
+      
+        a{
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    
+  
+
+        <header class=" fixed-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <h3><a href="/new" class="">DocForge</a></h3>
+                    </div>
+                
+                    <div class="col-md-12 ">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb float-md-right bg-transparent" >
+                              <li class="breadcrumb-item"><a href = "/docs">docs</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">viewer</li>
+                              
+                            </ol>
+                          </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+       
+       
+        <main class="body container">
+            <div class="row" th:object="${doc}">
+
+                <article class="row">
+                    <div class="col-md-12">
+                        <h1 class="card-titile" style="font-weight: bold; margin-bottom: 20px;" th:text="${doc.name}"></h1>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="card-subtitle mb-2 text-muted">
+                        <span th:text="${doc.createdAt}"> </span> 
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <section>
+                            <p class="card-text" style="margin-top: 40px;" > <span th:utext="${doc.text}" ></span></p>
+                        </section>
+                    </div>
+                </article>
+           
+                <div class="row">
+                    <div class="col-md-12">
+                        <a th:href="@{'/pdf/' + ${doc.id}}" class="btn btn-secondary "><strong>gerar PF</strong></a>
+                    </div>
+                </div>
+            </div>
+            
+              
+            </div>
+        </main>
+
+   
+
+   
+</body>
+</html>
